@@ -4,10 +4,10 @@ import type { ThemeConfig } from "./types/config.types"
 export const themeConfig: ThemeConfig = {
   // SITE INFO ///////////////////////////////////////////////////////////////////////////////////////////
   site: {
-    website: 'https://astro-chiri.netlify.app/', // Site domain
+    website: 'https://gizn.netlify.app/', // Site domain
     title: 'gizn', // Site title
     author: 'gizn', // Author name
-    description: 'Ingen vet vad den här fabriken gör...', // Site description
+    description: 'Ingen vet vad den här fabriken gör', // Site description
     language: 'en-US' // Default language
   },
 
