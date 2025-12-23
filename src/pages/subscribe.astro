@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const pageTitle = "About me";
+---
+
+<BaseLayout pageTitle={pageTitle}>
+    <article class="prose">
+        <h2>Subscribe via rss:</h2>
+        <ul>
+            <li><a href="/rss.xml">Subscribe to all posts</a></li>
+            <li><a href="/essays/rss.xml">Subscribe to just the essays</a></li>
+        </ul>
+    </article>
+</BaseLayout>

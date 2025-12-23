@@ -24,6 +24,7 @@ export const themeConfig: ThemeConfig = {
     { href: "/", label: "Home" },
     { href: "/essays/", label: "Essays" },
     { href: "/about/", label: "About" },
+    { href: "/subscribe.astro/", label: "Subscribe" },
   ],
   // SOCIAL ////////////////////////////
   social: [
