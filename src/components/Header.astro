@@ -8,13 +8,21 @@ import Navigation from './Navigation.astro';
 <style>
   header {
     position: sticky;
-    top: -2rem;
-    padding-top: 3rem;
-    padding-bottom: 1rem;
-    margin-top: -2rem;
+    top: 0;
+    padding: 1rem 0;
     margin-bottom: 2rem;
     background-color: var(--color-bg);
     border-bottom: 1px solid var(--color-secondary);
     z-index: 1000;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    left: -2rem;
+    right: -2rem;
+    height: 100px;
+    background-color: var(--color-bg);
   }
 </style>
