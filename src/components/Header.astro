@@ -15,8 +15,17 @@ import Navigation from './Navigation.astro';
     max-width: 64ch;
     padding: 2rem 2rem 1rem;
     background-color: var(--color-bg);
-    border-bottom: 1px solid var(--color-secondary);
     z-index: 1000;
     box-sizing: border-box;
+  }
+
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 2rem;
+    right: 2rem;
+    height: 1px;
+    background-color: var(--color-secondary);
   }
 </style>
