@@ -5,7 +5,7 @@ import preact from "@astrojs/preact";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://example.com",
+  site: "https://gizn.netlify.app",
   integrations: [preact()],
   markdown: {
     shikiConfig: {
