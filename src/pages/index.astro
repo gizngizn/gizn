@@ -1,20 +1,73 @@
 ---
-const pageTitle = "Astro!";
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { ExternalLink } from 'lucide-astro';
+
+const pageTitle = "Home";
+
+const stream = await getCollection('stream');
+const sorted = stream.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
+<BaseLayout pageTitle={pageTitle}>
+  {sorted.length === 0 && <p>No posts yet.</p>}
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{pageTitle}</title>
-	</head>
-	<body>
-        <a href="/">Home</a>
-        <a href="/about/">About</a>
-        <a href="/blog/">Blog</a>
+  <ul class="post-list">
+    {sorted.map(async (post) => {
+      const { Content } = await post.render();
+      const hasLink = !!post.data.link;
+      return (
+        <li>
+          <div class="stream-header">
+            {hasLink ? (
+              <a href={post.data.link} target="_blank" rel="noopener noreferrer">
+                <span class="title">{post.data.title} <ExternalLink size={14} class="link-icon" /></span>
+                <span class="line"></span>
+                <time datetime={post.data.date.toISOString()}>
+                  {post.data.date.toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric'
+                  })}
+                </time>
+              </a>
+            ) : (
+              <a href={`/stream/${post.slug}`}>
+                <span class="title">{post.data.title}</span>
+                <span class="line"></span>
+                <time datetime={post.data.date.toISOString()}>
+                  {post.data.date.toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric'
+                  })}
+                </time>
+              </a>
+            )}
+          </div>
+          <div class="stream-content">
+            <Content />
+          </div>
+          <hr />
+        </li>
+      );
+    })}
+  </ul>
+</BaseLayout>
 
-		<h1>{pageTitle}</h1>
-	</body>
-</html>
+<style>
+  .stream-header {
+    margin-bottom: 1rem;
+  }
+
+  .stream-content {
+    margin-bottom: 1rem;
+  }
+
+  .stream-content p:first-child {
+    margin-top: 0;
+  }
+
+  .stream-content p:last-child {
+    margin-bottom: 0;
+  }
+</style>

@@ -1,0 +1,44 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const pageTitle = "Essays";
+
+const essays = await getCollection('essays', ({ data }) => {
+  return import.meta.env.PROD ? !data.draft : true;
+});
+
+// Sort by updated date if available, otherwise created date
+const sorted = essays.sort((a, b) => {
+  const dateA = a.data.updated || a.data.created;
+  const dateB = b.data.updated || b.data.created;
+  return dateB.valueOf() - dateA.valueOf();
+});
+---
+<BaseLayout pageTitle={pageTitle}>
+  <h1>Essays</h1>
+
+  {sorted.length === 0 && <p>No essays yet.</p>}
+
+  <ul class="post-list">
+    {sorted.map((essay) => {
+      const displayDate = essay.data.updated || essay.data.created;
+      return (
+        <li>
+          <a href={`/essays/${essay.slug}`}>
+            <span class="title">{essay.data.title}</span>
+            <span class="line"></span>
+            <time datetime={displayDate.toISOString()}>
+              {displayDate.toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric'
+              })}
+            </time>
+          </a>
+        </li>
+      );
+    })}
+  </ul>
+</BaseLayout>
+

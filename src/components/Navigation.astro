@@ -1,0 +1,25 @@
+---
+import { themeConfig } from "../config";
+---
+<nav>
+  {themeConfig.nav.map((item) => (
+    <a href={item.href}>{item.label}</a>
+  ))}
+</nav>
+
+<style>
+  nav {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-size: 0.875rem;
+  }
+
+  a:hover {
+    color: var(--color-accent);
+  }
+</style>
